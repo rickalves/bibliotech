@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
 
 // Modelo da tabela Usuario
-const Usuario = sequelize.define('Usuario', {
+const Usuario = sequelize.define('usuario', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   nome: { type: DataTypes.STRING(100), allowNull: false }, // Nome do usuário
   email: { type: DataTypes.STRING(100), allowNull: false, unique: true }, // Email único

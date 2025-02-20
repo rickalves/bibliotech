@@ -12,7 +12,7 @@ exports.register = async (req, res) => {
     await Usuario.create({ nome, email, senha: hashedPassword, tipo });
     res.status(201).json({ message: 'Usuário criado com sucesso!' });
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar usuário' });
+    res.status(500).json({ error: `Erro ao criar usuário:(${error})` }); 
   }
 };
 
@@ -42,3 +42,4 @@ exports.logout = async (req, res) => {
     res.status(500).json({ error: 'Erro ao fazer logout' });
   }
 };
+
