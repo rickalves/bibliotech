@@ -1,41 +1,26 @@
 require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
-const express = require('express');
-const cors = require('cors');
-const { sequelize } = require('./src/config/database');
-const mongoose = require('mongoose');
-const authRoutes = require('./src/routes/authRoutes');
-const { authenticateJWT } = require('./src/middlewares/authMiddleware');
+const { sequelize } = require('./src/config/database');// Importa a conexão com o banco
+const mongoose = require('mongoose');// Importa mongoose para conexão com o MongoDB
+const app = require('./src/app'); // Importa o aplicativo
 
-const app = express();
-app.use(express.json()); // Permite a manipulação de JSON no corpo das requisições
-app.use(cors()); // Habilita CORS para requisições de diferentes origens
 
-// Conectar ao PostgreSQL e sincronizar modelos
 
+// Conectar ao PostgreSQL 
 sequelize.authenticate()
   .then(()=> console.log('✅ Conectado ao PostgreSQL🐘')) 
   .catch(err => console.error('❌ Erro ao conectar PostgreSQL:', err));
 
-
+//Sincronizar modelos no PostgreSQL
 sequelize.sync({force:true})
   .then(() => console.log('🔄 PostgreSQL sincronizado'))
   .catch(err => console.error('❌ Erro ao sicronizar PostgreSQL:', err));
-
-
 
 // Conectar ao MongoDB para gerenciamento da blacklist de tokens JWT
 mongoose.connect(process.env.MONGO_URI).then(() => console.log('✅ Conectado ao MongoDB🍃'))
   .catch(err => console.error('❌ Erro ao conectar MongoDB:', err));
 
-// Definição das rotas de autenticação
-app.use('/api/auth', authRoutes);
-
-// Rota protegida para testar autenticação
-app.get('/api/protected', authenticateJWT, (req, res) => {
-  res.json({ message: 'Acesso autorizado!', user: req.user });
-});
-
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // Define a porta do servidor
+//inicia o servidor
 app.listen(PORT, () => {
   console.log(`⚙️  Servidor rodando em http://localhost:${PORT}`);
 });
