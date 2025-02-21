@@ -11,7 +11,7 @@ sequelize.authenticate()
   .catch(err => console.error('❌ Erro ao conectar PostgreSQL:', err));
 
 //Sincronizar modelos no PostgreSQL
-sequelize.sync({force:true})
+sequelize.sync({alter:true})
   .then(() => console.log('🔄 PostgreSQL sincronizado'))
   .catch(err => console.error('❌ Erro ao sicronizar PostgreSQL:', err));
 

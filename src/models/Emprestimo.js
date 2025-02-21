@@ -1,4 +1,6 @@
-// bibliotech-backend/models/Emprestimo.js
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
+
 const Emprestimo = sequelize.define('Emprestimo', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     id_usuario: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'Usuario', key: 'id' } }, // Referência ao usuário
