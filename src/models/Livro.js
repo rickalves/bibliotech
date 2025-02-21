@@ -1,5 +1,7 @@
-// bibliotech-backend/models/Livro.js
-const Livro = sequelize.define('Livro', {
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
+
+const Livro = sequelize.define('livro', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     titulo: { type: DataTypes.STRING(255), allowNull: false }, // Título do livro
     autor: { type: DataTypes.STRING(255), allowNull: false }, // Autor do livro

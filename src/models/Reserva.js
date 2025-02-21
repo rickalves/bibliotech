@@ -1,3 +1,6 @@
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../config/database');
+
 const Reserva = sequelize.define('Reserva', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     id_usuario: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'Usuario', key: 'id' } }, // Referência ao usuário
