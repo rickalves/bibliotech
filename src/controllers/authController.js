@@ -1,8 +1,11 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 const BlacklistToken = require('../models/BlacklistToken');
-require('dotenv').config();
+const RecuperaSenha = require('../models/RecuperaSenha');
+const { sendRecoveryEmail } = require('../services/emailService');
+
 
 // Função para registrar um novo usuário
 exports.register = async (req, res) => {
@@ -40,6 +43,73 @@ exports.logout = async (req, res) => {
     res.json({ message: 'Logout realizado com sucesso' });
   } catch (error) {
     res.status(500).json({ error: 'Erro ao fazer logout' });
+  }
+};
+
+
+// Função para solicitar recuperação de senha
+exports.solicitarRecuperacaoSenha = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+    if (!usuario) return res.status(404).json({ error: 'Usuário não encontrado.' });
+
+    // Geração de um código de 6 dígitos
+    const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Definir expiração do código (10 minutos)
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+
+    // Armazenar o código no MongoDB
+    await RecuperaSenha.create({ email, code: codigo, expiresAt });
+
+    // Enviar o código por e-mail
+    await sendRecoveryEmail(email, codigo);
+
+    res.status(200).json({ message: 'Código de recuperação enviado para o e-mail.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao enviar código de recuperação.' });
+  }
+};
+
+// Função para verificar o código de recuperação
+exports.verificarCodigo = async (req, res) => {
+  const { email, code } = req.body;
+  try {
+    const resetRequest = await RecuperaSenha.findOne({ email, code });
+    if (!resetRequest) return res.status(400).json({ error: 'Código inválido.' });
+
+    if (new Date() > resetRequest.expiresAt) {
+      return res.status(400).json({ error: 'Código expirado.' });
+    }
+
+    res.status(200).json({ message: 'Código válido.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao verificar o código.' });
+  }
+};
+
+// Função para redefinir a senha
+exports.redefinirSenha = async (req, res) => {
+  const { email, code, novaSenha } = req.body;
+  try {
+    const resetRequest = await RecuperaSenha.findOne({ email, code });
+    if (!resetRequest) return res.status(400).json({ error: 'Código inválido.' });
+
+    if (new Date() > resetRequest.expiresAt) {
+      return res.status(400).json({ error: 'Código expirado.' });
+    }
+
+    // Redefinir a senha
+    const hashedPassword = await bcrypt.hash(novaSenha, 10);
+    await Usuario.update({ senha: hashedPassword }, { where: { email } });
+
+    // Excluir o registro de recuperação após o uso
+    await RecuperaSenha.deleteOne({ email, code });
+
+    res.status(200).json({ message: 'Senha redefinida com sucesso.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao redefinir a senha.' });
   }
 };
 
