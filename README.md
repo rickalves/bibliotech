@@ -36,22 +36,6 @@ O **Bibliotech** é um sistema de gerenciamento de empréstimos de livros para e
  ┣ 📜 README.md
 ```
 
-### 📦 Frontend (React Native)
-```
-📦 bibliotech-frontend
- ┣ 📂 src
- ┃ ┣ 📂 components
- ┃ ┣ 📂 screens
- ┃ ┣ 📂 navigation
- ┃ ┣ 📂 services (consumo da API)
- ┣ 📜 App.js
- ┣ 📜 package.json
- ┣ 📜 .gitignore
- ┣ 📜 README.md
-```
-
----
-
 ## 🎯 Funcionalidades Principais
 
 ✅ **Autenticação JWT** com blacklist (MongoDB)  
@@ -149,6 +133,3 @@ Quer contribuir? Sinta-se à vontade para abrir **issues** ou enviar um **pull r
 ## 📜 Licença
 
 Este projeto está sob a licença **MIT**.
-
-📌 **Desenvolvido por [Seu Nome]** 🚀
-
