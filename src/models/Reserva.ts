@@ -14,13 +14,7 @@ interface IReserva {
 interface ReservaCreationAttributes extends Optional<IReserva, 'id'> {}
 
 // Definição do modelo `Reserva` com TypeScript
-class Reserva extends Model<IReserva, ReservaCreationAttributes> implements IReserva {
-  public id!: number;
-  public id_usuario!: number;
-  public id_livro!: number;
-  public data_reserva!: Date;
-  public status!: 'Ativa' | 'Cancelada' | 'Expirada';
-}
+class Reserva extends Model<IReserva, ReservaCreationAttributes> {}
 
 // Inicialização do modelo no Sequelize
 Reserva.init(

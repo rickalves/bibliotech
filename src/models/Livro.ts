@@ -18,17 +18,7 @@ interface ILivro {
 interface LivroCreationAttributes extends Optional<ILivro, 'id'> {}
 
 // Definição do modelo `Livro` com TypeScript
-class Livro extends Model<ILivro, LivroCreationAttributes> implements ILivro {
-  public id!: number;
-  public titulo!: string;
-  public autor!: string;
-  public editora!: string;
-  public ano!: number;
-  public isbn!: string;
-  public categoria!: string;
-  public quantidade_disponivel!: number;
-  public imagem_url?: string;
-}
+class Livro extends Model<ILivro, LivroCreationAttributes>{}
 
 // Inicialização do modelo com Sequelize
 Livro.init(

@@ -15,14 +15,7 @@ interface IHistorico {
 interface HistoricoCreationAttributes extends Optional<IHistorico, 'id'> {}
 
 // Definição do modelo `Historico` com TypeScript
-class Historico extends Model<IHistorico, HistoricoCreationAttributes> implements IHistorico {
-  public id!: number;
-  public id_usuario!: number;
-  public id_livro!: number;
-  public data_emprestimo!: Date;
-  public data_devolucao!: Date;
-  public status!: 'Devolvido';
-}
+class Historico extends Model<IHistorico, HistoricoCreationAttributes>{}
 
 // Inicialização do modelo no Sequelize
 Historico.init(
