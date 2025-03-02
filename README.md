@@ -1,135 +1,141 @@
-# 📚 Bibliotech - Sistema de Empréstimo de Livros
-
-O **Bibliotech** é um sistema de gerenciamento de empréstimos de livros para escolas, permitindo que alunos e professores realizem empréstimos, reservas e interação com a biblioteca digitalmente.
-
-## 🚀 Tecnologias Utilizadas
-
-- **Backend**: Node.js + Express
-- **Frontend**: React Native (Aplicativo Mobile)
-- **Banco de Dados**: PostgreSQL + Sequelize (dados principais) & MongoDB + Mongoose (blacklist de JWTs)
-- **Autenticação**: JSON Web Token (JWT) + Bcrypt
-- **Arquitetura**: MVC (Model-View-Controller)
-- **Gerenciamento de Versão**: Git & GitHub
 
 ---
 
-## 📂 Estrutura do Projeto
+# Bibliotech - Sistema de Empréstimo de Livros 📖🏫🔖
 
-### 📦 Backend (Node.js + Express)
+O Bibliotech é um sistema de gerenciamento de empréstimo de livros para bibliotecas, desenvolvido para atender instituições de ensino por meio de uma API robusta e segura. Este projeto é inteiramente focado no back-end, utilizando Node.js, Express e TypeScript. 🔄🛠️💡
+
+## Funcionalidades ✅📘🔍
+
+- **Autenticação e Autorização:** 🔐🔑📜
+  - ✅ Registro e login de usuários utilizando JSON Web Tokens (JWT).
+  - 🔄 Gerenciamento de blacklist de tokens para logout seguro.
+- **CRUD de Livros:** 📚📖✏️
+  - ➕ Criação, 📋 Listagem, ✏️ Atualização e ❌ Exclusão de livros.
+- **Gerenciamento de Usuários:** 👥🛂🔄
+  - 📝 Cadastro e ✏️ Atualização de perfis.
+- **Reservas e Empréstimos:** 📆📌📦
+  - 📌 Sistema para reservas e 📦 controle de empréstimos de livros.
+- **Dashboards Administrativos:** 📊📈📑
+  - 📡 Monitoramento e 📈 estatísticas dos empréstimos e reservas (em desenvolvimento).
+
+## Tecnologias Utilizadas 🖥️🛠️🔧
+
+- **Backend:** 🟢 Node.js, ⚡ Express e 🏷️ TypeScript
+- **Bancos de Dados:** 🗄️
+  - 🐘 PostgreSQL para armazenamento dos dados principais.
+  - 🍃 MongoDB para gerenciamento da blacklist de tokens.
+- **Autenticação:** 🔑 JWT e 🔒 Bcrypt para criptografia de senhas.
+- **Arquitetura:** 🏗️ MVC (Model-View-Controller)
+- **Gerenciamento de Dependências:** 📦 npm 📂💾
+
+## Estrutura do Projeto 📂🗂️🔍
+
+A estrutura de pastas segue uma organização modular e escalável:
+
 ```
-📦 bibliotech-backend
- ┣ 📂 src
- ┃ ┣ 📂 config
- ┃ ┣ 📂 models
- ┃ ┣ 📂 controllers
- ┃ ┣ 📂 routes
- ┃ ┣ 📂 services
- ┃ ┣ 📂 middlewares
- ┃ ┣ 📂 utils
- ┃ ┣ 📂 database
- ┃ ┣ 📜 app.js
- ┃ ┣ 📜 server.js
- ┣ 📂 tests
- ┣ 📜 .env
- ┣ 📜 .gitignore
- ┣ 📜 package.json
- ┣ 📜 README.md
+bibliotech/
+├── src/
+│   ├── config/       # ⚙️ Configurações gerais (banco de dados, variáveis de ambiente, etc.)
+│   ├── controllers/  # 🎛️ Lógica dos endpoints da API
+│   ├── middlewares/  # 🔄 Funções de middleware (autenticação, validações, etc.)
+│   ├── models/       # 🗂️ Modelos e esquemas dos dados
+│   ├── routes/       # 🛤️ Definição das rotas da API
+│   ├── services/     # ⚙️ Regras de negócio e integrações com os modelos
+│   └── utils/        # 🛠️ Funções utilitárias
+├── server.ts         # 🚀 Ponto de entrada da aplicação
+├── package.json      # 📜 Dependências e scripts do projeto
+├── tsconfig.json     # ⚙️ Configurações do TypeScript
+├── nodemon.json      # 🔄 Configurações do Nodemon para desenvolvimento
+└── .gitignore        # 🚫 Arquivos e pastas ignorados pelo Git
 ```
 
-## 🎯 Funcionalidades Principais
+## Instalação e Execução 🚀🛠️⚙️
 
-✅ **Autenticação JWT** com blacklist (MongoDB)  
-✅ **CRUD de Livros** (Adicionar, Editar, Excluir, Listar)  
-✅ **Gerenciamento de Usuários** (Cadastro, Perfil)  
-✅ **Histórico de Leitura & Favoritos**  
-✅ **Reservas de Livros**  
-✅ **Diferentes Níveis de Acesso (Leitores e Administradores)**  
-✅ **Dashboards Personalizados para cada Tipo de Usuário**  
-✅ **Integração com Frontend React Native via API REST**  
+### Pré-requisitos 📝✅📌
 
----
+- 🟢 **Node.js:** Versão 18 ou superior.
+- 🗄️ **Bancos de Dados:** PostgreSQL e MongoDB instalados e em execução.
 
-## 🛠️ Como Rodar o Projeto
+### Configuração do Ambiente ⚡🔧🔍
 
-### 1️⃣ **Pré-requisitos**
-- **Node.js** instalado (versão 18+ recomendada)
-- **PostgreSQL** e **MongoDB** rodando
-- **React Native** configurado no ambiente de desenvolvimento
+1. **Clonar o Repositório:** 🖥️📦📂
 
-### 2️⃣ **Configuração do Backend**
-1. **Crie um banco no PostgreSQL** chamado `bibliotech_db`
-2. **Crie um arquivo `.env`** na raiz do projeto e configure as variáveis:
+   ```bash
+   git clone https://github.com/rickalves/bibliotech.git
+   cd bibliotech
    ```
+
+2. **Configurar Variáveis de Ambiente:** ⚙️🔑📝
+
+   Crie um arquivo `.env` na raiz do projeto e defina as seguintes variáveis:
+
+   ```dotenv
    POSTGRES_URI=postgres://seu_usuario:senha@localhost:5432/bibliotech_db
    MONGO_URI=mongodb://localhost:27017/bibliotech_blacklist
    JWT_SECRET=sua_chave_secreta
    ```
-3. **Instalar Dependências**
-```bash
-npm install
-```
-4. **Rodar as Migrations**
-```bash
-npx sequelize db:migrate
-```
-5. **Executar o Servidor**
-```bash
-npm start
-```
-O backend rodará em **http://localhost:5000** 🚀
 
-### 3️⃣ **Configuração do Frontend**
-1. **Navegar até a pasta do frontend**
-```bash
-cd bibliotech-frontend
-```
-2. **Instalar dependências**
-```bash
-npm install
-```
-3. **Executar o aplicativo**
-```bash
-npx expo start
-```
+3. **Instalar Dependências:** 📦📋✅
 
----
+   ```bash
+   npm install
+   ```
 
-## 📌 Rotas da API
+4. **Executar o Projeto:** 🏃‍♂️🚀🔄
 
-### 🔑 **Autenticação**
-- `POST /api/auth/register` → Criar conta
-- `POST /api/auth/login` → Fazer login
-- `POST /api/auth/logout` → Logout e blacklist de token
+   - Para desenvolvimento (com monitoramento de alterações via Nodemon):
 
-### 👤 **Usuário**
-- `GET /api/user/me` → Obter perfil
-- `PUT /api/user/update` → Atualizar perfil
+     ```bash
+     npm run dev
+     ```
 
-### 📚 **Livros**
-- `GET /api/books` → Listar livros
-- `POST /api/books` → Adicionar livro (admin)
-- `PUT /api/books/:id` → Editar livro (admin)
-- `DELETE /api/books/:id` → Remover livro (admin)
+   - Para produção:
 
-### 📊 **Dashboards**
-- `GET /api/dashboard/user` → Dados do dashboard para leitores
-- `GET /api/dashboard/admin` → Dados do dashboard para administradores
+     ```bash
+     npm start
+     ```
 
----
+   O servidor iniciará e ficará disponível em [http://localhost:5000](http://localhost:5000) (ou conforme configuração definida). 🌐🚀🔗
 
-## 🔥 Próximos Passos
-- 📌 Implementar notificações para devolução de livros
-- 📌 Criar dashboard para acompanhar estatísticas de empréstimos
-- 📌 Desenvolver mais funcionalidades no aplicativo React Native
+## Rotas da API 🔀📡💻
 
----
+### Autenticação 🔑🛡️🔄
 
-## 🤝 Contribuição
+- `POST /api/auth/register` — 📝 Registrar novo usuário
+- `POST /api/auth/login` — 🔑 Autenticar usuário
+- `POST /api/auth/logout` — 🔄 Logout e invalidação do token
 
-Quer contribuir? Sinta-se à vontade para abrir **issues** ou enviar um **pull request**. 💡
+### Usuários 👤📂🔄
 
----
+- `GET /api/user/me` — 📋 Recuperar perfil do usuário
+- `PUT /api/user/update` — ✏️ Atualizar informações do usuário
 
-## 📜 Licença
+### Livros 📚📖📦
 
-Este projeto está sob a licença **MIT**.
+- `GET /api/books` — 📖 Listar todos os livros
+- `POST /api/books` — ➕ Adicionar novo livro *(restrito a administradores)*
+- `PUT /api/books/:id` — ✏️ Atualizar informações de um livro *(restrito a administradores)*
+- `DELETE /api/books/:id` — ❌ Remover um livro *(restrito a administradores)*
+
+## Roadmap 🛣️📍📌
+
+- 🔔 Implementação de notificações para devolução de livros.
+- 📊 Desenvolvimento de dashboards com estatísticas e relatórios.
+- 🔐 Aperfeiçoamentos na segurança e performance da API. 📊⚡🔍
+
+## Contribuição 🤝🚀🌎
+
+Contribuições são sempre bem-vindas! Para colaborar:
+
+1. 🔀 Faça um fork deste repositório.
+2. 🌱 Crie uma branch para sua feature ou correção:
+   ```bash
+   git checkout -b feature/nova-funcionalidade
+   ```
+3. 💾 Realize as modificações necessárias e faça os commits.
+4. 📩 Envie um Pull Request descrevendo suas alterações. ✅📩🔧
+
+## Licença 📜⚖️🔓
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
