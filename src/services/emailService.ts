@@ -1,20 +1,26 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
+
+// Definição da interface para os parâmetros da função
+interface EmailOptions {
+  to: string;
+  code: string;
+}
 
 // Configuração do serviço de envio de e-mails
 const transporter = nodemailer.createTransport({
   service: 'gmail', // Provedor de e-mail
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    user: process.env.EMAIL_USER as string,
+    pass: process.env.EMAIL_PASS as string,
+  },
 });
 
-// Função para enviar o e-mail com HTML formatado
-exports.sendRecoveryEmail = async (to, code) => {
+// Função para enviar o e-mail de recuperação de senha
+export const sendRecoveryEmail = async ({ to, code }: EmailOptions): Promise<void> => {
   try {
     await transporter.sendMail({
       from: `"Bibliotech 📚" <${process.env.EMAIL_USER}>`,
-      to: to,
+      to,
       subject: 'Recuperação de Senha - Bibliotech 📚',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; border-radius: 10px; background-color: #f9f9f9;">
@@ -34,7 +40,7 @@ exports.sendRecoveryEmail = async (to, code) => {
             Se você não solicitou essa recuperação, ignore este e-mail.
           </p>
         </div>
-      `
+      `,
     });
   } catch (error) {
     console.error('Erro ao enviar e-mail:', error);
