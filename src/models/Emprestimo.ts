@@ -15,14 +15,7 @@ interface IEmprestimo {
 interface EmprestimoCreationAttributes extends Optional<IEmprestimo, 'id'> {}
 
 // Definição do modelo `Emprestimo` com TypeScript
-class Emprestimo extends Model<IEmprestimo, EmprestimoCreationAttributes> implements IEmprestimo {
-  public id!: number;
-  public id_usuario!: number;
-  public id_livro!: number;
-  public data_emprestimo!: Date;
-  public data_devolucao!: Date;
-  public status!: 'Pendente' | 'Devolvido' | 'Atrasado';
-}
+class Emprestimo extends Model<IEmprestimo, EmprestimoCreationAttributes> {}
 
 // Inicialização do modelo no Sequelize
 Emprestimo.init(
