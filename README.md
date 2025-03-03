@@ -105,6 +105,9 @@ bibliotech/
 - `POST /api/auth/register` — Registrar novo usuário
 - `POST /api/auth/login` — Autenticar usuário
 - `POST /api/auth/logout` — Logout e invalidação do token
+- `POST /api/auth/password-recovery` — Solicitar recuperação de senha
+- `POST /api/auth/verify-code` — Verificar código
+- `POST /api/auth/reset-password` — Resetar senha
 
 ### Usuários 👤📂🔄
 
