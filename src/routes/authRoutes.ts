@@ -3,9 +3,9 @@ import {
   register,
   login,
   logout,
-  solicitarRecuperacaoSenha,
-  verificarCodigo,
-  redefinirSenha
+  passwordRecovery,
+  verifyCode,
+  resetPassword
 } from '../controllers/authController';
 
 const router = express.Router();
@@ -23,8 +23,8 @@ router.post('/login', asyncHandler(login));
 router.post('/logout', asyncHandler(logout));
 
 // Rotas de recuperação de senha
-router.post('/solicitar-recuperacao', asyncHandler(solicitarRecuperacaoSenha));
-router.post('/verificar-codigo', asyncHandler(verificarCodigo));
-router.post('/redefinir-senha', asyncHandler(redefinirSenha));
+router.post('/password-recovery', asyncHandler(passwordRecovery));
+router.post('/verify-code', asyncHandler(verifyCode));
+router.post('/reset-password', asyncHandler(resetPassword));
 
 export default router;
