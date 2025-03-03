@@ -1,12 +1,12 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { authenticateJWT } from '../middlewares/authMiddleware';
 import {
-  adicionarLivro,
-  listarLivros,
-  buscarLivroPorId,
-  atualizarLivro,
-  deletarLivro
-} from '../controllers/livroController';
+  addBook,
+  findAll,
+  findById,
+  updateBook,
+  deleteBook
+} from '../controllers/bookController';
 
 const router = express.Router();
 
@@ -18,18 +18,18 @@ const asyncHandler = (fn: (req: Request, res: Response, next: NextFunction) => P
 };
 
 // Rota protegida para adicionar livro (somente administradores)
-router.post('/', authenticateJWT, asyncHandler(adicionarLivro));
+router.post('/', authenticateJWT, asyncHandler(addBook));
 
 // Listar todos os livros
-router.get('/', asyncHandler(listarLivros));
+router.get('/', asyncHandler(findAll));
 
 // Buscar livro por ID
-router.get('/:id', asyncHandler(buscarLivroPorId));
+router.get('/:id', asyncHandler(findById));
 
 // Atualizar livro (somente administradores)
-router.put('/:id', authenticateJWT, asyncHandler(atualizarLivro));
+router.put('/:id', authenticateJWT, asyncHandler(updateBook));
 
 // Deletar livro (somente administradores)
-router.delete('/:id', authenticateJWT, asyncHandler(deletarLivro));
+router.delete('/:id', authenticateJWT, asyncHandler(deleteBook));
 
 export default router;
