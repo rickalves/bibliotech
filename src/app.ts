@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import protectedRoutes from './routes/protectedRoutes';
-import livroRoutes from './routes/bookRoutes';
+import bookRoutes from './routes/bookRoutes';
 
 const app = express(); // Cria uma instância do Express
 
@@ -14,7 +14,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/protected', protectedRoutes);
 
 // Definir rotas de livros
-app.use('/api/livros', livroRoutes);
+app.use('/api/books', bookRoutes);
 
 // Middleware global de erro
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
