@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import protectedRoutes from './routes/protectedRoutes';
-import livroRoutes from './routes/livroRoutes';
+import livroRoutes from './routes/bookRoutes';
 
 const app = express(); // Cria uma instância do Express
 

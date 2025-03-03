@@ -117,7 +117,7 @@ export const logout = async (req: Request, res: Response): Promise<Response> => 
 };
 
 // Função para solicitar recuperação de senha
-export const solicitarRecuperacaoSenha = async (req: Request, res: Response): Promise<Response> => {
+export const passwordRecovery = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email } = req.body;
     const usuario = await Usuario.findOne({ where: { email } });
@@ -138,7 +138,7 @@ export const solicitarRecuperacaoSenha = async (req: Request, res: Response): Pr
 };
 
 // Função para verificar o código de recuperação
-export const verificarCodigo = async (req: Request, res: Response): Promise<Response> => {
+export const verifyCode = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { email, code } = req.body;
     const resetRequest = await RecuperaSenha.findOne({ email, code });
@@ -157,9 +157,9 @@ export const verificarCodigo = async (req: Request, res: Response): Promise<Resp
 };
 
 // Função para redefinir a senha
-export const redefinirSenha = async (req: Request, res: Response): Promise<Response> => {
+export const resetPassword = async (req: Request, res: Response): Promise<Response> => {
   try {
-    const { email, code, novaSenha } = req.body;
+    const { email, code, password } = req.body;
     const resetRequest = await RecuperaSenha.findOne({ email, code });
 
     if (!resetRequest) return res.status(400).json({ error: 'Código inválido.' });
@@ -168,7 +168,7 @@ export const redefinirSenha = async (req: Request, res: Response): Promise<Respo
       return res.status(400).json({ error: 'Código expirado.' });
     }
 
-    const hashedPassword = await bcrypt.hash(novaSenha, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     await Usuario.update({ senha: hashedPassword }, { where: { email } });
 
     await RecuperaSenha.deleteOne({ email, code });
